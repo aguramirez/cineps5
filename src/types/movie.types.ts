@@ -138,8 +138,6 @@ export interface UseLenisScrollReturn {
   scrollDirection: 'up' | 'down' | null;
   scrollToMovie: (index: number) => void;
   scrollToTop: () => void;
-  start: () => void;
-  stop: () => void;
 }
 
 export interface UseGSAPAnimationsReturn {

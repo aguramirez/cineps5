@@ -403,3 +403,66 @@ body {
     background-position: -200% 0;
   }
 }
+
+/* HTML and Body Base Styles */
+html {
+  font-family: var(--font-family-primary);
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+  -moz-tab-size: 4;
+  tab-size: 4;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: inherit;
+  line-height: inherit;
+  margin: 0;
+  background-color: var(--color-dark);
+  color: var(--color-primary);
+  overflow-x: hidden;
+  min-height: 100vh;
+  
+  /* Cinema-specific styling */
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0f0f0f 100%);
+  
+  /* Improve font rendering */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: 'kern' 1;
+}
+
+/* Movie Display Container */
+.cinema-app {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.main-content {
+  position: fixed;
+  left: 240px;
+  top: 0;
+  width: calc(100vw - 240px);
+  height: 100vh;
+  overflow: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .main-content {
+    left: 200px;
+    width: calc(100vw - 200px);
+  }
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    left: 0;
+    width: 100vw;
+    top: 60px;
+    height: calc(100vh - 60px);
+  }
+}

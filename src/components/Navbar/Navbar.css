@@ -4,7 +4,7 @@
   position: fixed;
   left: 0;
   top: 0;
-  width: 240px;
+  width: 350px;
   height: 100vh;
   z-index: 100;
   transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
@@ -119,33 +119,6 @@
   font-weight: 500;
 }
 
-/* Movie List */
-.movie-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.movie-item {
-  position: relative;
-}
-
-.movie-button {
-  width: 100%;
-  background: none;
-  border: none;
-  padding: 16px 0;
-  text-align: left;
-  cursor: none;
-  position: relative;
-  transition: all 0.3s ease;
-  overflow: hidden;
-}
-
 .movie-button::before {
   content: '';
   position: absolute;
@@ -198,7 +171,7 @@
 }
 
 .movie-title {
-  font-size: 16px;
+  font-size: 14px;
   color: rgba(255, 255, 255, 0.7);
   font-weight: 500;
   letter-spacing: -0.01em;
@@ -213,49 +186,6 @@
 .movie-button.active .movie-title {
   color: #fff;
   font-weight: 600;
-}
-
-/* Button Particles */
-.button-particles {
-  position: absolute;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  gap: 4px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.movie-button:hover .button-particles {
-  opacity: 1;
-}
-
-.particle-dot {
-  width: 3px;
-  height: 3px;
-  background: rgba(255, 255, 255, 0.6);
-  border-radius: 50%;
-  animation: particleFloat 2s ease-in-out infinite;
-}
-
-.particle-dot:nth-child(2) {
-  animation-delay: 0.3s;
-}
-
-.particle-dot:nth-child(3) {
-  animation-delay: 0.6s;
-}
-
-@keyframes particleFloat {
-  0%, 100% {
-    transform: translateY(0);
-    opacity: 0.6;
-  }
-  50% {
-    transform: translateY(-8px);
-    opacity: 1;
-  }
 }
 
 /* Footer */
@@ -274,18 +204,6 @@
   font-weight: 500;
 }
 
-.scroll-arrow {
-  animation: scrollBounce 2s ease-in-out infinite;
-}
-
-@keyframes scrollBounce {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(4px);
-  }
-}
 
 /* Edge Glow Effect */
 .navbar-edge-glow {
@@ -391,4 +309,33 @@
   .navbar-edge-glow {
     animation: none;
   }
+}
+
+/* Movie List */
+.movie-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow-y: auto;
+  max-height: calc(100vh - 200px);
+}
+
+.movie-item {
+  position: relative;
+}
+
+.movie-button {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 12px 0;
+  text-align: left;
+  cursor: none;
+  position: relative;
+  transition: all 0.3s ease;
+  overflow: hidden;
 }
