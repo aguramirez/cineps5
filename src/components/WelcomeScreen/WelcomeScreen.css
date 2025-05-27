@@ -392,3 +392,52 @@
     animation: none;
   }
 }
+
+/* Agregar al final de src/components/WelcomeScreen/WelcomeScreen.css */
+
+/* Interaction Hint */
+.interaction-hint {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 14px;
+  text-align: center;
+  animation: hintFade 3s ease-in-out infinite;
+  z-index: 15;
+}
+
+@keyframes hintFade {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+/* Make scroll indicator clickable */
+.scroll-indicator {
+  transition: transform 0.3s ease;
+}
+
+.scroll-indicator:hover {
+  transform: scale(1.1);
+}
+
+.scroll-indicator:active {
+  transform: scale(0.95);
+}
+
+/* Add cursor pointer to clickable areas */
+.welcome-screen {
+  cursor: pointer;
+}
+
+/* Ensure welcome screen has scroll capability */
+.welcome-screen {
+  min-height: 100vh;
+  height: 100vh;
+  position: relative;
+}

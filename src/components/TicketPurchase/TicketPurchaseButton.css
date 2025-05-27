@@ -1,0 +1,353 @@
+/* src/components/TicketPurchase/TicketPurchaseButton.css */
+
+.ticket-purchase-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  z-index: 100;
+  --btn-main-color: #F59E0B;
+  --btn-accent-color: #F97316;
+}
+
+/* Glow Background */
+.button-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120%;
+  height: 120%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(var(--btn-main-color-rgb, 245, 158, 11), 0.3) 0%,
+    rgba(var(--btn-accent-color-rgb, 249, 115, 22), 0.1) 50%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  filter: blur(20px);
+  opacity: 0.6;
+  z-index: -1;
+}
+
+/* Main Button */
+.ticket-purchase-btn {
+  position: relative;
+  width: 280px;
+  height: 64px;
+  border: none;
+  border-radius: 32px;
+  cursor: none;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+.ticket-purchase-btn.active {
+  animation: btnEntrance 1s ease-out;
+}
+
+@keyframes btnEntrance {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Button Background */
+.btn-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.btn-gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    var(--btn-main-color) 0%,
+    var(--btn-accent-color) 50%,
+    var(--btn-main-color) 100%
+  );
+  border-radius: 32px;
+  opacity: 0.9;
+}
+
+.btn-shimmer {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.4) 50%,
+    transparent 100%
+  );
+  border-radius: 32px;
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%, 90%, 100% {
+    left: -100%;
+  }
+  45% {
+    left: 100%;
+  }
+}
+
+/* Button Content */
+.btn-content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  padding: 0 24px;
+  z-index: 3;
+  color: #000;
+}
+
+.btn-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  color: #000;
+  transition: all 0.3s ease;
+}
+
+.ticket-purchase-btn:hover .btn-icon {
+  background: rgba(0, 0, 0, 0.2);
+  transform: scale(1.1);
+}
+
+.btn-text {
+  flex: 1;
+  text-align: center;
+  margin: 0 16px;
+}
+
+.btn-main-text {
+  display: block;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #000;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.btn-sub-text {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.7);
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 160px;
+}
+
+.btn-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  color: #000;
+  transition: transform 0.3s ease;
+}
+
+.ticket-purchase-btn:hover .btn-arrow {
+  transform: translateX(4px);
+}
+
+/* Floating Particles */
+.btn-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  border-radius: 32px;
+  overflow: hidden;
+}
+
+.btn-particle {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: 4px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  animation: btnParticleFloat 3s ease-in-out infinite;
+  animation-delay: var(--delay);
+  opacity: 0;
+}
+
+.ticket-purchase-btn.hovered .btn-particle {
+  opacity: 1;
+}
+
+@keyframes btnParticleFloat {
+  0%, 100% {
+    transform: translateY(0) scale(0.8);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-12px) scale(1.2);
+    opacity: 1;
+  }
+}
+
+/* Ripple Effect */
+.btn-ripple {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  transform: scale(0);
+  pointer-events: none;
+  z-index: 4;
+}
+
+/* Price Badge */
+.price-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 8px 16px;
+  color: #fff;
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+.price-from {
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 2px;
+}
+
+.price-amount {
+  color: var(--btn-main-color);
+  font-weight: 700;
+  font-size: 16px;
+  font-family: 'Courier New', monospace;
+}
+
+/* Hover States */
+.ticket-purchase-btn:hover {
+  box-shadow: 
+    0 8px 32px rgba(var(--btn-main-color-rgb, 245, 158, 11), 0.4),
+    0 0 0 2px rgba(255, 255, 255, 0.1);
+}
+
+.ticket-purchase-btn:hover .btn-gradient {
+  opacity: 1;
+}
+
+.ticket-purchase-btn:hover .price-badge {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Active States */
+.ticket-purchase-btn:active {
+  transform: scale(0.98);
+}
+
+/* Accessibility */
+.ticket-purchase-btn:focus-visible {
+  outline: 2px solid var(--btn-main-color);
+  outline-offset: 4px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .ticket-purchase-btn {
+    width: 240px;
+    height: 56px;
+  }
+  
+  .btn-content {
+    padding: 0 20px;
+  }
+  
+  .btn-main-text {
+    font-size: 14px;
+  }
+  
+  .btn-sub-text {
+    font-size: 11px;
+    max-width: 120px;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .btn-gradient {
+    background: linear-gradient(135deg, #000 0%, #333 100%);
+  }
+  
+  .btn-content {
+    color: #fff;
+  }
+  
+  .btn-main-text,
+  .btn-icon,
+  .btn-arrow {
+    color: #fff;
+  }
+  
+  .btn-sub-text {
+    color: rgba(255, 255, 255, 0.8);
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .btn-shimmer,
+  .btn-particle {
+    animation: none;
+  }
+  
+  .ticket-purchase-btn {
+    animation: none;
+  }
+  
+  .button-glow {
+    animation: none;
+  }
+}

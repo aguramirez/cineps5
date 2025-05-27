@@ -106,6 +106,42 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
     };
   }, []);
 
+  // Handle scroll or click to proceed
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        onComplete?.();
+      }
+    };
+
+    const handleClick = () => {
+      onComplete?.();
+    };
+
+    const handleKeyPress = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowDown' || e.key === ' ' || e.key === 'Enter') {
+        onComplete?.();
+      }
+    };
+
+    // Add event listeners
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('click', handleClick);
+    window.addEventListener('keydown', handleKeyPress);
+
+    // Auto-complete after 5 seconds if no interaction
+    const autoCompleteTimer = setTimeout(() => {
+      onComplete?.();
+    }, 8000);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('click', handleClick);
+      window.removeEventListener('keydown', handleKeyPress);
+      clearTimeout(autoCompleteTimer);
+    };
+  }, [onComplete]);
+
   return (
     <div className="welcome-screen" ref={containerRef}>
       {/* Background Effects */}
@@ -141,7 +177,12 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
             seguí bajando
           </h2>
           
-          <div className="scroll-indicator" ref={arrowRef}>
+          <div 
+            className="scroll-indicator" 
+            ref={arrowRef}
+            onClick={() => onComplete?.()}
+            style={{ cursor: 'pointer' }}
+          >
             <div className="arrow-icon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <path 
@@ -186,6 +227,11 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
         {[...Array(10)].map((_, i) => (
           <div key={i} className="film-perforation"></div>
         ))}
+      </div>
+
+      {/* Interaction hint */}
+      <div className="interaction-hint">
+        <p>Haz scroll, click o presiona Enter para continuar</p>
       </div>
     </div>
   );

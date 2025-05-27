@@ -217,6 +217,8 @@ export const useLenisScroll = ({
     isScrolling,
     scrollDirection,
     scrollToMovie,
-    scrollToTop
+    scrollToTop,
+    start,
+    stop
   };
 };
