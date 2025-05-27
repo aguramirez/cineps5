@@ -1,0 +1,205 @@
+/* MainLayout.css */
+.main-layout {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0f0f0f 100%);
+  cursor: none;
+}
+
+/* Custom Cursor */
+.cursor {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  backdrop-filter: blur(5px);
+  background: rgba(255, 255, 255, 0.05);
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.cursor-dot {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  background: #fff;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+/* Ambient Background */
+.ambient-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.ambient-light {
+  position: absolute;
+  top: 20%;
+  left: 30%;
+  width: 60%;
+  height: 60%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(147, 51, 234, 0.15) 0%,
+    rgba(79, 70, 229, 0.1) 30%,
+    rgba(236, 72, 153, 0.05) 60%,
+    transparent 100%
+  );
+  border-radius: 50%;
+  filter: blur(60px);
+  animation: ambientPulse 8s ease-in-out infinite alternate;
+}
+
+@keyframes ambientPulse {
+  0% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1.2) rotate(10deg);
+    opacity: 0.3;
+  }
+}
+
+.film-grain {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.01) 1px, transparent 1px),
+    radial-gradient(circle at 45% 65%, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+  background-size: 100px 100px, 120px 120px, 80px 80px;
+  animation: filmGrain 0.2s steps(1) infinite;
+  opacity: 0.4;
+}
+
+@keyframes filmGrain {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-1px, -1px); }
+  20% { transform: translate(1px, 1px); }
+  30% { transform: translate(-1px, 1px); }
+  40% { transform: translate(1px, -1px); }
+  50% { transform: translate(-1px, -1px); }
+  60% { transform: translate(1px, 1px); }
+  70% { transform: translate(-1px, 1px); }
+  80% { transform: translate(1px, -1px); }
+  90% { transform: translate(-1px, -1px); }
+}
+
+/* Layout Container */
+.layout-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  display: flex;
+}
+
+/* Floating Particles */
+.particles-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, transparent 70%);
+  border-radius: 50%;
+  left: var(--x);
+  top: var(--y);
+  animation: floatParticle var(--duration) linear infinite;
+  animation-delay: var(--delay);
+  opacity: 0;
+}
+
+@keyframes floatParticle {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(0.5);
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(-20px) scale(1);
+  }
+  90% {
+    opacity: 1;
+    transform: translateY(-80vh) scale(0.8);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-100vh) scale(0.3);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .cursor,
+  .cursor-dot {
+    display: none;
+  }
+  
+  .main-layout {
+    cursor: auto;
+  }
+  
+  .ambient-light {
+    width: 80%;
+    height: 80%;
+    top: 10%;
+    left: 10%;
+  }
+  
+  .particles-container {
+    display: none; /* Disable particles on mobile for performance */
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .film-grain {
+    display: none;
+  }
+  
+  .ambient-light {
+    opacity: 0.3;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .ambient-light,
+  .film-grain,
+  .particle {
+    animation: none;
+  }
+  
+  .cursor {
+    transition: none;
+  }
+}

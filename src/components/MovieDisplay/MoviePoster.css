@@ -1,0 +1,452 @@
+/* src/components/MovieDisplay/MoviePoster.css */
+
+.movie-poster-container {
+  position: relative;
+  perspective: 1000px;
+  width: 100%;
+  max-width: 400px;
+  --poster-main-color: #fff;
+  --poster-accent-color: #888;
+}
+
+.movie-poster {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2/3;
+  transform-style: preserve-3d;
+  cursor: none;
+  transition: filter 0.8s ease;
+  filter: grayscale(0.3) brightness(0.8);
+}
+
+.movie-poster.active {
+  filter: grayscale(0) brightness(1);
+}
+
+.movie-poster.loaded {
+  animation: posterEntrance 1.5s ease-out;
+}
+
+@keyframes posterEntrance {
+  0% {
+    transform: scale(0.8) rotateY(-20deg);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) rotateY(0deg);
+    opacity: 1;
+  }
+}
+
+/* Glow Effect */
+.poster-glow {
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  right: -20px;
+  bottom: -20px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(var(--poster-main-color-rgb, 255, 255, 255), 0.3) 0%,
+    rgba(var(--poster-accent-color-rgb, 136, 136, 136), 0.1) 50%,
+    transparent 70%
+  );
+  border-radius: 20px;
+  filter: blur(15px);
+  opacity: 0.7;
+  z-index: -1;
+  animation: glowPulse 4s ease-in-out infinite alternate;
+}
+
+@keyframes glowPulse {
+  0% {
+    opacity: 0.4;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+/* Main Frame */
+.poster-frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.05) 50%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+  border-radius: 16px;
+  padding: 8px;
+  box-shadow: 
+    0 0 20px rgba(var(--poster-main-color-rgb, 255, 255, 255), 0.3),
+    inset 0 0 10px rgba(var(--poster-accent-color-rgb, 136, 136, 136), 0.15),
+    0 20px 40px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  transition: box-shadow 0.4s ease;
+  overflow: hidden;
+}
+
+/* Frame Corners */
+.frame-corner {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  z-index: 3;
+}
+
+.frame-corner-tl {
+  top: 4px;
+  left: 4px;
+  border-right: none;
+  border-bottom: none;
+  border-top-left-radius: 12px;
+}
+
+.frame-corner-tr {
+  top: 4px;
+  right: 4px;
+  border-left: none;
+  border-bottom: none;
+  border-top-right-radius: 12px;
+}
+
+.frame-corner-bl {
+  bottom: 4px;
+  left: 4px;
+  border-right: none;
+  border-top: none;
+  border-bottom-left-radius: 12px;
+}
+
+.frame-corner-br {
+  bottom: 4px;
+  right: 4px;
+  border-left: none;
+  border-top: none;
+  border-bottom-right-radius: 12px;
+}
+
+/* Poster Image */
+.poster-image-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #1a1a1a;
+}
+
+.poster-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+  filter: contrast(1.1) saturate(1.2);
+}
+
+.movie-poster:hover .poster-image {
+  transform: scale(1.05);
+}
+
+/* Image Overlay Effects */
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.vignette-effect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 30%,
+    rgba(0, 0, 0, 0.1) 70%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+}
+
+.scan-lines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 2px,
+    rgba(255, 255, 255, 0.02) 2px,
+    rgba(255, 255, 255, 0.02) 4px
+  );
+  opacity: 0.5;
+  animation: scanMove 3s linear infinite;
+}
+
+@keyframes scanMove {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+/* Reflection Effect */
+.poster-reflection {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 70%
+  );
+  opacity: 0.2;
+  transform: translateX(-100%);
+  animation: reflectionSweep 4s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 3;
+}
+
+@keyframes reflectionSweep {
+  0%, 90%, 100% {
+    transform: translateX(-100%);
+  }
+  45% {
+    transform: translateX(100%);
+  }
+}
+
+/* Info Badge */
+.info-badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 4;
+}
+
+.badge-year,
+.badge-rating {
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.badge-year {
+  color: rgba(255, 255, 255, 0.9);
+  font-family: 'Courier New', monospace;
+}
+
+.badge-rating {
+  background: linear-gradient(135deg, #F59E0B, #F97316);
+  color: #000;
+  font-weight: 700;
+}
+
+.movie-poster:hover .badge-year,
+.movie-poster:hover .badge-rating {
+  transform: scale(1.1);
+}
+
+/* Particle Effects */
+.poster-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.poster-particle {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: 3px;
+  height: 3px;
+  background: radial-gradient(
+    circle,
+    rgba(var(--poster-main-color-rgb, 255, 255, 255), 0.8) 0%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  animation: posterParticleFloat var(--duration) ease-in-out infinite;
+  animation-delay: var(--delay);
+  opacity: 0;
+}
+
+@keyframes posterParticleFloat {
+  0%, 100% {
+    opacity: 0;
+    transform: translateY(0) scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-20px) scale(1.2);
+  }
+}
+
+/* Loading State */
+.poster-loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.8);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  gap: 16px;
+  z-index: 5;
+  border-radius: 12px;
+}
+
+.loading-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-top: 3px solid rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Shadow Base */
+.poster-shadow {
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 20px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0.4) 0%,
+    transparent 70%
+  );
+  filter: blur(10px);
+  z-index: -2;
+  animation: shadowPulse 4s ease-in-out infinite alternate;
+}
+
+@keyframes shadowPulse {
+  0% {
+    opacity: 0.4;
+    transform: translateX(-50%) scale(0.9);
+  }
+  100% {
+    opacity: 0.7;
+    transform: translateX(-50%) scale(1.1);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .movie-poster-container {
+    max-width: 350px;
+  }
+  
+  .frame-corner {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .info-badge {
+    top: 12px;
+    right: 12px;
+  }
+  
+  .badge-year,
+  .badge-rating {
+    font-size: 11px;
+    padding: 5px 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  .movie-poster-container {
+    max-width: 280px;
+  }
+  
+  .poster-frame {
+    padding: 6px;
+    border-radius: 12px;
+  }
+  
+  .poster-image-container {
+    border-radius: 8px;
+  }
+  
+  .scan-lines {
+    display: none; /* Improve performance on mobile */
+  }
+  
+  .poster-particles {
+    display: none; /* Reduce complexity on mobile */
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .poster-frame {
+    border: 2px solid #fff;
+    background: rgba(0, 0, 0, 0.9);
+  }
+  
+  .frame-corner {
+    border-color: #fff;
+  }
+  
+  .vignette-effect {
+    display: none;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .poster-glow,
+  .scan-lines,
+  .poster-reflection,
+  .poster-particle,
+  .poster-shadow,
+  .loading-spinner {
+    animation: none;
+  }
+  
+  .movie-poster {
+    transition: none;
+  }
+}

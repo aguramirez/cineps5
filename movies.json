@@ -1,0 +1,94 @@
+{
+  "movies": [
+    {
+      "id": "dune-part-two",
+      "title": "Dune: Part Two",
+      "slug": "dune-part-two",
+      "poster": "dune-poster.jpg",
+      "backdropImage": "dune-backdrop.jpg",
+      "genre": ["Sci-Fi", "Adventure", "Drama"],
+      "duration": "166 min",
+      "rating": "PG-13",
+      "year": 2024,
+      "synopsis": "Paul Atreides unites with Chani and the Fremen while seeking revenge against the conspirators who destroyed his family.",
+      "director": "Denis Villeneuve",
+      "mainColor": "#C4941A",
+      "accentColor": "#8B4513",
+      "characters": [
+        {
+          "id": "paul-atreides",
+          "name": "Paul Atreides",
+          "actor": "Timothée Chalamet",
+          "image": "paul-character.png",
+          "description": "The prophesied leader of the Fremen rebellion"
+        },
+        {
+          "id": "chani",
+          "name": "Chani",
+          "actor": "Zendaya",
+          "image": "chani-character.png",
+          "description": "Fremen warrior and Paul's love interest"
+        },
+        {
+          "id": "stilgar",
+          "name": "Stilgar",
+          "actor": "Javier Bardem",
+          "image": "stilgar-character.png",
+          "description": "Leader of the Fremen sietch"
+        },
+        {
+          "id": "baron-harkonnen",
+          "name": "Baron Harkonnen",
+          "actor": "Stellan Skarsgård",
+          "image": "baron-character.png",
+          "description": "Ruthless leader of House Harkonnen"
+        }
+      ]
+    },
+    {
+      "id": "oppenheimer",
+      "title": "Oppenheimer",
+      "slug": "oppenheimer",
+      "poster": "oppenheimer-poster.jpg",
+      "backdropImage": "oppenheimer-backdrop.jpg",
+      "genre": ["Biography", "Drama", "History"],
+      "duration": "180 min",
+      "rating": "R",
+      "year": 2023,
+      "synopsis": "The story of American scientist J. Robert Oppenheimer and his role in the development of the atomic bomb.",
+      "director": "Christopher Nolan",
+      "mainColor": "#FF4500",
+      "accentColor": "#8B0000",
+      "characters": [
+        {
+          "id": "oppenheimer",
+          "name": "J. Robert Oppenheimer",
+          "actor": "Cillian Murphy",
+          "image": "oppenheimer-character.png",
+          "description": "Theoretical physicist and father of the atomic bomb"
+        },
+        {
+          "id": "kitty-oppenheimer",
+          "name": "Kitty Oppenheimer",
+          "actor": "Emily Blunt",
+          "image": "kitty-character.png",
+          "description": "Robert's wife and former Communist Party member"
+        },
+        {
+          "id": "leslie-groves",
+          "name": "Leslie Groves",
+          "actor": "Matt Damon",
+          "image": "groves-character.png",
+          "description": "U.S. Army Corps of Engineers officer"
+        },
+        {
+          "id": "lewis-strauss",
+          "name": "Lewis Strauss",
+          "actor": "Robert Downey Jr.",
+          "image": "strauss-character.png",
+          "description": "Chairman of the U.S. Atomic Energy Commission"
+        }
+      ]
+    }
+  ]
+}

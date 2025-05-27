@@ -1,0 +1,426 @@
+/* src/components/MovieDisplay/MovieDisplay.css */
+
+.movie-display {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  opacity: 0;
+  transform: scale(0.98);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  --movie-main-color: #fff;
+  --movie-accent-color: #888;
+}
+
+.movie-display.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.movie-display.transitioning {
+  pointer-events: none;
+}
+
+/* Dynamic Color Overlay */
+.color-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.color-gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    ellipse at 70% 30%,
+    rgba(var(--movie-main-color-rgb, 255, 255, 255), 0.08) 0%,
+    rgba(var(--movie-accent-color-rgb, 136, 136, 136), 0.05) 40%,
+    transparent 70%
+  );
+  animation: colorPulse 8s ease-in-out infinite alternate;
+}
+
+@keyframes colorPulse {
+  0% {
+    opacity: 0.6;
+    transform: scale(1) rotate(0deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.1) rotate(5deg);
+  }
+}
+
+.color-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.color-particle {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: 8px;
+  height: 8px;
+  background: radial-gradient(
+    circle,
+    rgba(var(--movie-main-color-rgb, 255, 255, 255), 0.6) 0%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  animation: colorParticleFloat 6s ease-in-out infinite;
+  animation-delay: var(--delay);
+}
+
+@keyframes colorParticleFloat {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateY(-30px) scale(1.5);
+    opacity: 0.8;
+  }
+}
+
+/* Backdrop Image */
+.backdrop-container {
+  position: absolute;
+  top: -10%;
+  left: -10%;
+  width: 120%;
+  height: 120%;
+  z-index: 0;
+}
+
+.backdrop-image {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: blur(1px) brightness(0.3);
+  transition: filter 1.5s ease;
+}
+
+.movie-display.active .backdrop-image {
+  filter: blur(0px) brightness(0.4);
+}
+
+.backdrop-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0.4) 50%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
+}
+
+/* Main Content */
+.movie-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  padding: 0 260px 0 20px; /* Account for navbar */
+  display: flex;
+  flex-direction: column;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 60px;
+  align-items: start;
+  height: 70vh;
+  padding-top: 8vh;
+}
+
+.poster-section {
+  position: relative;
+  z-index: 6;
+}
+
+.info-section {
+  position: relative;
+  z-index: 6;
+  padding-top: 20px;
+}
+
+.characters-section {
+  position: relative;
+  z-index: 6;
+  margin-top: auto;
+  padding-bottom: 40px;
+}
+
+/* Cinematic Elements */
+.cinematic-elements {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.film-border {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 30px;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  opacity: 0.6;
+}
+
+.film-border-top {
+  top: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+}
+
+.film-border-bottom {
+  bottom: 0;
+  background: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+}
+
+.film-perforation {
+  width: 8px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 1px;
+}
+
+/* Lens Flare Effects */
+.lens-flare {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.1) 30%,
+    transparent 70%
+  );
+  filter: blur(2px);
+  animation: lensFlareMove 12s ease-in-out infinite;
+  opacity: 0.7;
+}
+
+.lens-flare-1 {
+  width: 100px;
+  height: 100px;
+  top: 20%;
+  right: 15%;
+  animation-delay: 0s;
+}
+
+.lens-flare-2 {
+  width: 60px;
+  height: 60px;
+  bottom: 30%;
+  left: 20%;
+  animation-delay: 6s;
+}
+
+@keyframes lensFlareMove {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.3;
+  }
+  33% {
+    transform: translate(20px, -10px) scale(1.2);
+    opacity: 0.7;
+  }
+  66% {
+    transform: translate(-10px, 15px) scale(0.8);
+    opacity: 0.5;
+  }
+}
+
+/* Ambient Lights */
+.ambient-lights {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.ambient-light {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(40px);
+  animation: ambientFloat 10s ease-in-out infinite;
+}
+
+.ambient-light-1 {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(
+    circle,
+    rgba(var(--movie-main-color-rgb, 147, 51, 234), 0.15) 0%,
+    transparent 70%
+  );
+  top: 10%;
+  right: 20%;
+  animation-delay: 0s;
+}
+
+.ambient-light-2 {
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(
+    circle,
+    rgba(var(--movie-accent-color-rgb, 236, 72, 153), 0.1) 0%,
+    transparent 70%
+  );
+  bottom: 20%;
+  left: 30%;
+  animation-delay: 3s;
+}
+
+.ambient-light-3 {
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.05) 0%,
+    transparent 70%
+  );
+  top: 60%;
+  right: 40%;
+  animation-delay: 6s;
+}
+
+@keyframes ambientFloat {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.6;
+  }
+  25% {
+    transform: translate(20px, -15px) scale(1.1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(-10px, 10px) scale(0.9);
+    opacity: 0.7;
+  }
+  75% {
+    transform: translate(15px, -5px) scale(1.05);
+    opacity: 0.9;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1400px) {
+  .content-grid {
+    grid-template-columns: 350px 1fr;
+    gap: 40px;
+  }
+  
+  .movie-content {
+    padding-right: 200px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .content-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    height: auto;
+    padding-top: 5vh;
+  }
+  
+  .movie-content {
+    padding: 0 20px;
+  }
+  
+  .poster-section {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .characters-section {
+    margin-top: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .movie-content {
+    padding: 0 15px;
+  }
+  
+  .content-grid {
+    padding-top: 3vh;
+  }
+  
+  .film-border {
+    height: 20px;
+  }
+  
+  .ambient-lights {
+    opacity: 0.5;
+  }
+  
+  .lens-flare {
+    display: none;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .backdrop-image {
+    filter: blur(0px) brightness(0.2) contrast(1.5);
+  }
+  
+  .color-overlay {
+    opacity: 0.3;
+  }
+  
+  .ambient-lights {
+    display: none;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .color-gradient,
+  .color-particle,
+  .lens-flare,
+  .ambient-light {
+    animation: none;
+  }
+  
+  .movie-display {
+    transition: opacity 0.3s ease;
+  }
+}
